@@ -1,12 +1,20 @@
 
+import user from "../../fixtures/user.json";
+
 class MyPaymentOptionsPage {
 
     constructor() {
-        this.selectPaymentOptions = '[class="mat-radio-inner-circle"]';
-        this.continueButton = '[aria-label="Proceed to review"]';
-        this.userBalance = '[class="confirmation card-title"]';
-       // this.payNanButton ='[class="mat-focus-indicator btn mat-raised-button mat-button-base mat-primary"]';
 
+        this.openFullOptions = '#mat-expansion-panel-header-0 span';
+        this.userNameField = '#cdk-accordion-child-0 input';
+        this.userCard = '#cdk-accordion-child-0 input';
+        this.expiryMonthField = '[appearance="outline"]';
+        this.chooseExpiryMonth = '[appearance="outline"] select';
+        this.expiryYearField = '[appearance="outline"]';
+        this.chooseYearField = '[appearance="outline"] select';
+        this.submitButton = '#submitButton';
+        this.addUserData = '[class="mat-radio-container"]';
+        this.continueButton = '[aria-label="Proceed to review"]';
     }
 
     visit() {
@@ -14,8 +22,41 @@ class MyPaymentOptionsPage {
         cy.visit('/payment/shop');
     }
 
-    getSelectPaymentOptions() {
-        return cy.get(this.selectPaymentOptions);
+
+    getOpenFullOptions() {
+        return cy.get(this.openFullOptions);
+    }
+    getUserNameField() {
+        return cy.get(this.userNameField);
+    }
+    getUserCard() {
+        return cy.get(this.userCard);
+    }
+
+    getExpiryMonthField() {
+        return cy.get(this.expiryMonthField);
+    }
+
+
+    getExpiryYearField() {
+        return cy.get(this.expiryYearField);
+    }
+
+    getChooseExpiryMonth() {
+        return cy.get(this.chooseExpiryMonth);
+    }
+
+    getChooseExpiryYearField() {
+        return cy.get(this.chooseYearField);
+    }
+
+
+    getSubmitButton() {
+        return cy.get(this.submitButton);
+    }
+
+    getAddUserData() {
+        return cy.get(this.addUserData);
     }
 
     getContinueButton() {
@@ -23,35 +64,48 @@ class MyPaymentOptionsPage {
     }
 
 
-    getUserBalance() {
-        return cy.get(this.userBalance);
+    clickOpenFullOptions() {
+    this.getOpenFullOptions().eq(1).click();
     }
 
-    // getPayNanButton() {
-    //     return cy.get(this.payNanButton);
-    // }
-
-
-    clickSelectPaymentOptions() {
-        this.getSelectPaymentOptions().click();
+    typeUserNameField(){
+        this.getUserNameField().eq(0).should('exist').type(user.name);
     }
 
-    clickContinueButton(){
+    typeUserCard(){
+        this.getUserCard().eq(1).type(user.userCard);
+    }
+
+    selectExpiryMonthField(){
+        this.getExpiryMonthField().eq(2).click();
+        this.getChooseExpiryMonth().eq(0).select(1);
+    }
+
+
+    selectExpiryYearField(){
+        this.getExpiryYearField().eq(3).click();
+
+        this.getChooseExpiryYearField().should('have.length.greaterThan', 0);
+        this.getChooseExpiryYearField().find('option').should('contain', '2080');
+        this.getChooseExpiryYearField().eq(1).select('2080').should('have.value', '2080');
+    }
+
+    clickSubmitButton() {
+        this.getSubmitButton().click();
+    }
+
+    clickAddUserData() {
+        this.getAddUserData().click();
+    }
+
+    clickContinueButton() {
         this.getContinueButton().click();
     }
 
-    checkUserBalance(){
-        this.getUserBalance().should('contain', 10.00 );
-    }
-
-    // clickPayNanButton(){
-    //     this.getPayNanButton().click();
-    // }
 
     checkContinueButton() {
-        this.getContinueButton().should('have.attr', 'disabled', 'true');
+        this.getContinueButton().should('be.disabled');
     }
-
 
 }
 

@@ -8,7 +8,7 @@ describe('Positive test suite for Contact Form', () => {
         contactPage.visit();
     });
 
-    it('Should submit the contact form successfully', () => {
+    it('Submit the contact form is successful', () => {
 
         commentText.text = faker.lorem.text().slice(0, 50);
 
@@ -23,7 +23,7 @@ describe('Positive test suite for Contact Form', () => {
 
 })
 
-describe('Positive test suite for Contact Form', () => {
+describe('Negative test suite for Contact Form', () => {
     beforeEach(() => {
         contactPage.visit();
     });

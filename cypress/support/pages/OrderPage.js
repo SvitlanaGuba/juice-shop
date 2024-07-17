@@ -2,11 +2,10 @@
 class OrderPage {
 
     constructor() {
-
         this.userProductName = '[class="mat-cell cdk-cell cdk-column-product mat-column-product ng-star-inserted"]';
         this.productQuantity = '[style="font-size: initial;"]';
-        this.productPrice = '.cdk-column-price';//eq (1)
-        this.userTotalPrice = '[class="ng-star-inserted"]';//eq(1)
+        this.productPrice = '.cdk-column-price';
+        this.userTotalPrice = '#price';
         this.checkoutButton = '#checkoutButton';
     }
 
@@ -40,8 +39,7 @@ class OrderPage {
     }
 
     checkProductQuantity(expectedQuantity) {
-
-        this.getProductQuantity().should('contain', (expectedQuantity +1).toString());// ОТРАБОТАЕТ 1 раз
+        this.getProductQuantity().should('contain.text', expectedQuantity.toString());
     }
 
     checkProductPrice(expectedPrice) {
@@ -49,14 +47,12 @@ class OrderPage {
     }
 
     checkUserTotalPrice(expectedTotal) {
-       this.getUserTotalPrice().should('contain.text', expectedTotal.toFixed(2));
+        this.getUserTotalPrice().should('contain.text', expectedTotal.toFixed(2));
     }
 
     clickCheckoutButton() {
         this.getCheckoutButton().click();
     }
-
 }
 
 export default new OrderPage();
-

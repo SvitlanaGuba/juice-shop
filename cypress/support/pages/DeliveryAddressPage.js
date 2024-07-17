@@ -29,7 +29,7 @@ class DeliveryAddressPage {
         this.getContinueButton().click();
     }
     checkContinueButton() {
-        this.getContinueButton().should('have.attr', 'disabled', 'true');
+        this.getContinueButton().should('be.disabled');
     }
 
 }

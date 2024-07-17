@@ -13,6 +13,7 @@ class AddAddressInOrderPage {
         this.userCity = '[placeholder="Please provide a city."]';
         this.userState = '#mat-input-9';
         this.submitButton = '#submitButton';
+        this.continueButton = '[aria-label="Proceed to payment selection"]';
 
 
     }
@@ -58,6 +59,10 @@ class AddAddressInOrderPage {
 
     getSubmitButton() {
         return cy.get(this.submitButton);
+    }
+
+    getContinueButton() {
+        return cy.get(this.continueButton);
     }
 
 
@@ -106,7 +111,9 @@ class AddAddressInOrderPage {
         this.getSubmitButton().should('be.disabled');
     }
 
-
+    checkContinueButton() {
+        this.getContinueButton().should('be.disabled');
+    }
 
 
 }

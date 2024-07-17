@@ -1,4 +1,4 @@
-import user from "../../fixtures/user.json";
+
 
 class LoginPage {
 
@@ -11,6 +11,7 @@ class LoginPage {
         this.rememberMeButton = '#rememberMe-input';
         this.loginButton = '#loginButton';
         this.errorMessage = '[class="mat-card mat-focus-indicator mat-elevation-z6"]';
+
 
 
     }
@@ -55,13 +56,16 @@ class LoginPage {
         this.getPasswordInputField().type(password);
     }
 
-    checkLoginButton() {
+
+
+    checkRememberMeButton() {
         this.getRememberMeButton().check({ force: true });
     }
 
     clickLoginButton() {
         this.getLoginButton().click();
     }
+
 
     checkErrorMessage() {
         this.getErrorMessage().should("contain", 'Invalid email or password');

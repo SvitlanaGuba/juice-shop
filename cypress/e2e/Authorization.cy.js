@@ -4,11 +4,13 @@ import {faker} from '@faker-js/faker';
 import user from '../fixtures/user.json';
 import createAccountPage from "../support/pages/CreateAccountPage";
 
-//user.email = faker.internet.email();
+
 
 
 describe('Successful registration and authorization', () => {
 
+    user.email = faker.internet.email();
+    user.word = faker.word.noun();
 
     beforeEach(() => {
         cy.log("Open login page");
@@ -16,35 +18,51 @@ describe('Successful registration and authorization', () => {
         homePage.clickWelcomePopUp();
         homePage.clickAccountButton();
         homePage.clickLoginButton();
+
+        cy.log("Open account/create page");
+        loginPage.clickCustomerButton();
+
+        cy.log("Fill in the form for registration");
+        createAccountPage.typeUserEmail();
+        createAccountPage.typeUserPassword();
+        createAccountPage.typeUserRepeatPassword();
+        createAccountPage.selectUserSecurityQuestions();
+        createAccountPage.typeUserAnswer();
+
+        cy.log("Submit the form");
+        createAccountPage.clickRegisterButton();
     });
 
     it('Registration with valid data', () => {
 
-        cy.log("Fill in the registration form");
-        loginPage.fillLoginForm(user.email, user.password);// ERROR
-        loginPage.checkLoginButton();
+        cy.log("Fill in the authorization form");
+        loginPage.fillLoginForm(user.email, user.password);
+        loginPage.checkRememberMeButton();
         loginPage.clickLoginButton();
 
     });
 
 })
-    describe('Negative registration and authorization', () => {
+    describe('Negative test for registration and authorization', () => {
 
-        user.email = faker.internet.email();
 
         beforeEach(() => {
-            cy.log("Open login page");
+            cy.log("Open home page");
             homePage.visit();
             homePage.clickWelcomePopUp();
             homePage.clickAccountButton();
             homePage.clickLoginButton();
+
         });
 
-        it('Registration with valid data', () => {
+        it('Check error message', () => {
 
-            cy.log("Fill in the registration form");
-            loginPage.fillLoginForm(user.email, user.password);
-            loginPage.checkLoginButton();
+            const invalidEmail = "invalid@example.com";
+            const invalidPassword = "wrongpassword";
+
+            cy.log("Fill in the authorization form");
+            loginPage.fillLoginForm(invalidEmail, invalidPassword);
+            loginPage.checkRememberMeButton();
             loginPage.clickLoginButton();
             loginPage.checkErrorMessage();
 
@@ -53,49 +71,3 @@ describe('Successful registration and authorization', () => {
 
 
     });
-
-
-
-// describe('Negative Registration Test Suite', () => {
-//     beforeEach(() => {
-//         cy.log("Open account/login page");
-//         homePage.visit();
-//         homePage.clickWelcomePopUp();
-//         homePage.clickAccountButton();
-//         homePage.clickLoginButton();
-//     });
-//
-//     it('Should not allow registration if answer field is empty', () => {
-//         cy.log("Open account/create page");
-//         loginPage.clickCustomerButton();
-//
-//         cy.log("Fill in the form without answer");
-//         createAccountPage.typeUserEmail();
-//         createAccountPage.typeUserPassword();
-//         createAccountPage.typeUserRepeatPassword();
-//         createAccountPage.selectUserSecurityQuestions();
-//
-//         cy.log("Verify register button is disabled");
-//         createAccountPage.checkRegisterButtonIsDisabled();
-//     });
-// }
-
-// describe('Successful authorization', () => {
-//     beforeEach(() => {
-//         cy.log("Open login page");
-//         homePage.visit();
-//         homePage.clickWelcomePopUp();
-//         homePage.clickAccountButton();
-//         homePage.clickLoginButton();
-//     });
-//
-//     it('Registration with valid data', () => {
-//         cy.log("Fill in the form")
-//
-//         loginPage.fillLoginForm(user.email, user.password);
-//         loginPage.checkLoginButton();
-//         loginPage.clickLoginButton();
-//
-//     })
-//
-// });

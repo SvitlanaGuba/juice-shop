@@ -5,12 +5,12 @@ import user from '../fixtures/user.json';
 import createAccountPage from "../support/pages/CreateAccountPage";
 
 
-// user.email = faker.internet.email();
-// user.word = faker.word.noun();
+user.email = faker.internet.email();
+user.word = faker.word.noun();
 
 describe('Registration positive test suite', () => {
     beforeEach(() => {
-        cy.log("Open account/login page");
+        cy.log("Open home page");
         homePage.visit();
         homePage.clickWelcomePopUp();
         homePage.clickAccountButton();
@@ -39,8 +39,6 @@ describe('Registration positive test suite', () => {
     });
 });
 
-//user.email = faker.internet.email();
-
 describe('Negative Registration Test Suite', () => {
     beforeEach(() => {
         cy.log("Open account/login page");
@@ -50,7 +48,7 @@ describe('Negative Registration Test Suite', () => {
         homePage.clickLoginButton();
     });
 
-    it('Should not allow registration if answer field is empty', () => {
+    it('Registration if answer field is empty', () => {
         cy.log("Open account/create page");
         loginPage.clickCustomerButton();
 
