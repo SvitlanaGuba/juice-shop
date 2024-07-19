@@ -51,7 +51,7 @@ class OrderPage {
     }
 
     clickCheckoutButton() {
-        this.getCheckoutButton().click();
+        this.getCheckoutButton().click({force: true});
     }
 }
 
